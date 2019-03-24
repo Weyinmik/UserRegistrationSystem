@@ -64,7 +64,7 @@ public class UserRegistrationRestController {
 	}
 	
 	//	Implement an endpoint to access an individual user by using @GetMapping("/{id}"
-	@GetMapping("/user/{id}")
+	@GetMapping("//user/{id}")
 	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id){
 		UsersDTO user = userJpaRepository.findById(id);
 		
@@ -78,7 +78,7 @@ public class UserRegistrationRestController {
 	}
 	
 //	Implement an endpoint to update an individual user by using @PutMapping
-	@PutMapping(value = "/user/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "//user/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsersDTO> updateUser(@PathVariable("id") final Long id, @RequestBody UsersDTO user){
 		//	Fetch user based on id and set it to currentUser object of type UsersDTO
 		UsersDTO currentUser = userJpaRepository.findById(id);
@@ -115,7 +115,9 @@ public class UserRegistrationRestController {
 								+ id + " not found."), HttpStatus.NOT_FOUND);
 			}
 		userJpaRepository.delete(id);
-		return new ResponseEntity<UsersDTO>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<UsersDTO>(
+				new CustomErrorType("Deleted User with id " 
+						+ id + "."),HttpStatus.NO_CONTENT);
 		
 	}
 }
