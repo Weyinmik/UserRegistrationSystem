@@ -1,4 +1,4 @@
-package com.weyinmi.isack.UserRegistrationSystem;
+package com.weyinmi.isack.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
