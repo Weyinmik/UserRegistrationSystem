@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Users")
-public class UserDTO {
+public class UsersDTO {
 	@Id
 	@GeneratedValue
 	@Column(name = "USER_ID")
