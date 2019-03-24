@@ -105,7 +105,7 @@ public class UserRegistrationRestController {
 	
 //	Implement the delete functionality for an endpoint to delete an existing user from the UserRegistrationSystem by using @DeleteMapping
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") final long id){
+	public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") final Long id){
 		UsersDTO user = userJpaRepository.findById(id);
 		
 //		 If client want to delete a user that does not exist, give a 404 error
