@@ -67,7 +67,7 @@ public class RestValidationHandler {
 					error.getDefaultMessage(), null, currentLocale);
 			fieldValidationError.setField(error.getField());
 			fieldValidationError.setType(MessageType.ERROR);
-			fieldValidationError.setMessage(error.getDefaultMessage());
+			fieldValidationError.setMessage(msg);
 		}
 		return fieldValidationError;
 	}
