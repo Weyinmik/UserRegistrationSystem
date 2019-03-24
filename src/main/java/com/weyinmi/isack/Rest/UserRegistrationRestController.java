@@ -41,12 +41,23 @@ public class UserRegistrationRestController {
 	@GetMapping("/user")
 	public ResponseEntity<List<UsersDTO>> listAllUsers() {
 		List<UsersDTO> users = userJpaRepository.findAll();
+		
+		//	 If no user details return 404 no content status
+		if(users.isEmpty()) {
+			return new ResponseEntity<List<UsersDTO>>(HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<List<UsersDTO>>(users, HttpStatus.OK);
 	}
 	
 	//	Add a user to UserRegistrationSystem by implementing the POST verb functionality.
 	@PostMapping(value="/user", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsersDTO> createUser(@RequestBody final UsersDTO user){
+		
+		//	 If user already exist in the repository
+		if(userJpaRepository.findByName(user.getName()) !=null) {
+			return new ResponseEntity<UsersDTO>(new CustomErrorType(
+					"Unable to create new user. A User with name " + user.getName() + " already exist."), HttpStatus.CONFLICT);
+		}
 		userJpaRepository.save(user);
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
 		
@@ -72,6 +83,13 @@ public class UserRegistrationRestController {
 		//	Fetch user based on id and set it to currentUser object of type UsersDTO
 		UsersDTO currentUser = userJpaRepository.findById(id);
 		
+		// If user want to update user that does not exist in the Repository
+		if(currentUser == null) {
+			return new ResponseEntity<UsersDTO>(
+					new CustomErrorType("Unable to update. User with id " 
+							+ id + " not found."), HttpStatus.NOT_FOUND);
+		}
+		
 		//	Update currentUser object data with user object data
 		currentUser.setName(user.getName());
 		currentUser.setAddress(user.getAddress());
@@ -88,6 +106,14 @@ public class UserRegistrationRestController {
 //	Implement the delete functionality for an endpoint to delete an existing user from the UserRegistrationSystem by using @DeleteMapping
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") final long id){
+		UsersDTO user = userJpaRepository.findById(id);
+		
+//		 If client want to delete a user that does not exist, give a 404 error
+			if(user == null) {
+				return new ResponseEntity<UsersDTO>(
+						new CustomErrorType("Unable to delete. User with id "
+								+ id + " not found."), HttpStatus.NOT_FOUND);
+			}
 		userJpaRepository.delete(id);
 		return new ResponseEntity<UsersDTO>(HttpStatus.NO_CONTENT);
 		
