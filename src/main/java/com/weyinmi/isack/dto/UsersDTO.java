@@ -17,7 +17,7 @@ public class UsersDTO {
 	@Id
 	@GeneratedValue
 	@Column(name = "USER_ID")
-	private long id;
+	private Long id;
 	
 	@NotEmpty(message = "error.name.empty")
 	@Length(max = 50, message = "error.name.length")
@@ -36,7 +36,7 @@ public class UsersDTO {
 	private String email;
 	
 	 //Getters and Setters Method
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
@@ -57,9 +57,7 @@ public class UsersDTO {
 	public String getEmail() {
 		return email;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
