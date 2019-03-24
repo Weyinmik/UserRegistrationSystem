@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.weyinmi.isack.Exception.CustomErrorType;
 import com.weyinmi.isack.dto.UsersDTO;
 import com.weyinmi.isack.repository.UserJpaRepository;
 
@@ -55,6 +56,12 @@ public class UserRegistrationRestController {
 	@GetMapping("/user/{id}")
 	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id){
 		UsersDTO user = userJpaRepository.findById(id);
+		
+		//	 If user id does not exist give a 404 error message
+		if(user == null) {
+			return new ResponseEntity<UsersDTO>( 
+					new CustomErrorType("User with id " + id + " not found"), HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.OK);
 		
 	}

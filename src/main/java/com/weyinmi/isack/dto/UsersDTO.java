@@ -48,5 +48,9 @@ public class UsersDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getErrorMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
