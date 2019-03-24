@@ -2,6 +2,7 @@ package com.weyinmi.isack.Rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,10 +52,12 @@ public class UserRegistrationRestController {
 	
 	//	Add a user to UserRegistrationSystem by implementing the POST verb functionality.
 	@PostMapping(value="/user", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UsersDTO> createUser(@RequestBody final UsersDTO user){
+	public ResponseEntity<UsersDTO> createUser( @Valid @RequestBody final UsersDTO user){
+		logger.info("Creating User : {}", user);
 		
 		//	 If user already exist in the repository
-		if(userJpaRepository.findByName(user.getName()) !=null) {
+		if(userJpaRepository.findByName(user.getName()) != null) {
+			logger.error("Unable to create. A User with name {} already exist", user.getName());
 			return new ResponseEntity<UsersDTO>(new CustomErrorType(
 					"Unable to create new user. A User with name " + user.getName() + " already exist."), HttpStatus.CONFLICT);
 		}
@@ -64,7 +67,7 @@ public class UserRegistrationRestController {
 	}
 	
 	//	Implement an endpoint to access an individual user by using @GetMapping("/{id}"
-	@GetMapping("//user/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id){
 		UsersDTO user = userJpaRepository.findById(id);
 		
@@ -78,7 +81,7 @@ public class UserRegistrationRestController {
 	}
 	
 //	Implement an endpoint to update an individual user by using @PutMapping
-	@PutMapping(value = "//user/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/user/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsersDTO> updateUser(@PathVariable("id") final Long id, @RequestBody UsersDTO user){
 		//	Fetch user based on id and set it to currentUser object of type UsersDTO
 		UsersDTO currentUser = userJpaRepository.findById(id);

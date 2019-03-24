@@ -17,7 +17,7 @@ public class UsersDTO {
 	@Id
 	@GeneratedValue
 	@Column(name = "USER_ID")
-	private Long id;
+	private long id;
 	
 	@NotEmpty
 	@Length(max = 50)
