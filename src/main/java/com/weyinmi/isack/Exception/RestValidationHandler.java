@@ -1,12 +1,15 @@
 package com.weyinmi.isack.Exception;
 
 import java.util.List;
+import java.util.Locale;
 import java.awt.TrayIcon.MessageType;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class RestValidationHandler {
+	
+	private MessageSource messageSource;
 
 	//	method to handle validation error
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -56,6 +61,10 @@ public class RestValidationHandler {
 		FieldValidationError fieldValidationError = new FieldValidationError();
 		
 		if(error != null) {
+			// To be able to read the messages.properties file
+			Locale currentLocale = LocaleContextHolder.getLocale();
+			String msg = messageSource.getMessage(
+					error.getDefaultMessage(), null, currentLocale);
 			fieldValidationError.setField(error.getField());
 			fieldValidationError.setType(MessageType.ERROR);
 			fieldValidationError.setMessage(error.getDefaultMessage());
