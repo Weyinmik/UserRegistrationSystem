@@ -8,7 +8,5 @@ import com.weyinmi.isack.dto.UsersDTO;
 @Repository
 public interface UserJpaRepository extends JpaRepository<UsersDTO, Long> {
 
-	UsersDTO findById(Long id);
-
 	UsersDTO findByName(String name);
 }
