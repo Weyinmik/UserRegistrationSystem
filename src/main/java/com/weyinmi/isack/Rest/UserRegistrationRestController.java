@@ -43,6 +43,7 @@ public class UserRegistrationRestController {
 	//	Add a user to UserRegistrationSystem by implementing the POST verb functionality.
 	@PostMapping(value="/user", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsersDTO> createUser(@RequestBody final UsersDTO user){
+		userJpaRepository.save(user);
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
 		
 	}
