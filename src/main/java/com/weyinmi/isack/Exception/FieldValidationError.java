@@ -3,18 +3,17 @@ package com.weyinmi.isack.Exception;
 import java.awt.TrayIcon.MessageType;
 
 public class FieldValidationError {
-	
-	private String field;
+
+	private String filed;
 	private String message;
-	
 	private MessageType type;
 
-	public String getField() {
-		return field;
+	public String getFiled() {
+		return filed;
 	}
 
-	public void setField(String field) {
-		this.field = field;
+	public void setFiled(String filed) {
+		this.filed = filed;
 	}
 
 	public String getMessage() {
@@ -34,3 +33,7 @@ public class FieldValidationError {
 	}
 
 }
+
+/*
+ * public enum MessageType { SUCCESS, INFO, WARNING, ERROR }
+ */
