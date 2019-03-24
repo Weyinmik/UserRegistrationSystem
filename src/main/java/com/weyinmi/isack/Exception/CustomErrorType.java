@@ -8,6 +8,7 @@ public class CustomErrorType extends UsersDTO {
 	public CustomErrorType(final String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
+	@Override
 	public String getErrorMessage() {
 		return errorMessage;
 	}
