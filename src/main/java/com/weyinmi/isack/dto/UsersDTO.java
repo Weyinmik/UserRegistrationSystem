@@ -57,11 +57,11 @@ public class UsersDTO {
 	public String getEmail() {
 		return email;
 	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getErrorMessage() {
-		return null;
 	}
 	
 
