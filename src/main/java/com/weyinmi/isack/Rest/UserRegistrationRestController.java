@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,14 @@ public class UserRegistrationRestController {
 	public ResponseEntity<UsersDTO> createUser(@RequestBody final UsersDTO user){
 		userJpaRepository.save(user);
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
+		
+	}
+	
+	//	Implement an endpoint to access an individual user by using @GetMapping("/{id}"
+	@GetMapping("/user/{id}")
+	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id){
+		UsersDTO user = userJpaRepository.findById(id);
+		return new ResponseEntity<UsersDTO>(user, HttpStatus.OK);
 		
 	}
 	
