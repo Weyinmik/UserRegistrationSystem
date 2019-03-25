@@ -15,3 +15,8 @@ app.config(function($routeProvider) {
 		templateUrl : '/template/home.html',
 	});
 });
+
+// To register the AuthInterceptor with the AngularJS application
+app.config(['$httpProvider', function($httpProvider) {
+	  $httpProvider.interceptors.push('AuthInterceptor');
+	}]);
