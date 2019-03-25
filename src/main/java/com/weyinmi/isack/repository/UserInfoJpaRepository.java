@@ -7,5 +7,6 @@ import com.weyinmi.isack.dto.UserInfo;
 
 @Repository
 public interface UserInfoJpaRepository extends JpaRepository<UserInfo, Long> {
+	public UserInfo findByUsername(String username);
 
 }
